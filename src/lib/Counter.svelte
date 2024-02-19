@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let title: string = 'Multiple Counter';
+  export let title: string;
   let count: number = 0;
 
   function increment() {
@@ -13,10 +13,15 @@
   function reset() {
     count = 0;
   }
+
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
+  $: dispatch('countChanged', count);
 </script>
 
 <div>
-  <h2>{title}</h2>
+  <input type="text" bind:value={title} />
   <button on:click={decrement}>-</button>
   <span>{count}</span>
   <button on:click={increment}>+</button>
